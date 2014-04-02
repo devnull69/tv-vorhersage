@@ -1,0 +1,86 @@
+#overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   padding: 0;
+   margin: 0;
+   opacity: 0.3;
+   background-color: black;
+   display:-webkit-box;
+   -webkit-box-pack:center;
+   -webkit-box-align:center;
+}
+
+#popupbox {
+   position: absolute;
+   width: 500px;
+   max-height: 300px;
+   overflow-x: none;
+   overflow-y: auto;
+   border: 1px solid #333333;
+   padding: 10px;
+   padding-top: 0px;
+   border-radius: 5px;
+   background-color: lightyellow;
+}
+
+ul {
+   margin: 0;
+   padding: 0;
+   list-style-type: none;
+   list-style-position: outside;
+   font-family: arial, verdana, helvetica, sans-serif;
+   color: #333333;
+   font-size: 1em;
+}
+
+.suchergebnis-bild {
+width: 100px;
+margin-right: 5px;
+height: 53px;
+float: left;
+font-size: 0;
+display: block;
+}
+
+.suchergebnis-bild img {
+width: 100px;
+height: 53px;
+}
+
+.suchergebnis-titel {
+font-weight: bold;
+display: block;
+}
+
+.suchergebnis-untertitel {
+font-size: 0.9em;
+margin-top: 2px;
+display: block;
+}
+
+.suchergebnis-wannwo {
+font-size: 0.85em;
+margin-top: 5px;
+display: block;
+}
+
+.clear-left {
+clear: left;
+display: block;
+}
+
+.tr-odd, .a-odd a {
+background-color: #edece5;
+}
+
+a {
+   text-decoration: none;
+   color: #333333;
+}
+
+img.linked {
+   cursor: pointer;
+}
