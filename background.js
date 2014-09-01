@@ -19,7 +19,7 @@ function update() {
          options = JSON.parse(items.options);
          for(i=0; i<options.length; i++) {
             options[i].ergebnis = "-";
-            sendRequest(i, 0);
+            if(!options[i].aktiv || options[i].aktiv == "1") sendRequest(i, 0);
          }
       }
    });

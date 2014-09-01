@@ -29,6 +29,7 @@ function addEntry() {
       '<td>Staffel:</td><td><input type="text" size="3" class="staffel" value=""/></td>' +
       '<td>Episode:</td><td><input type="text" size="3" class="episode" value=""/></td>' +
       '<td>Sender:</td><td><select class="sender"></select></td>' +
+		'<td><label><input type="checkbox" class="aktiv" checked/>Aktiv</label></td>' +
       '<td><input type="button" value="Zeile löschen" class="delentry"/></td>' +
       '</tr>\n';
    theTableBody.appendChild(newTR);
@@ -250,7 +251,8 @@ function save() {
       var theStaffeln = document.getElementsByClassName('staffel');
       var theEpisoden = document.getElementsByClassName('episode');
       var theSender = document.getElementsByClassName('sender');
-      
+      var theAktiv = document.getElementsByClassName('aktiv');
+		
       var options = [];
       for(i=0; i<theSeriennamen.length; i++) {
          if(theSeriennamen[i].value != "" && thePfade[i].value != "" && theEpisoden[i].value != "") {
@@ -261,6 +263,7 @@ function save() {
             options[i].episode = theEpisoden[i].value;
             options[i].sender = theSender[i].value;
             options[i].ergebnis = "";
+				options[i].aktiv = theAktiv[i].checked ? "1" : "0";
          }
       }
       chrome.storage.sync.set({'options': JSON.stringify(options)});
@@ -279,12 +282,15 @@ function getOptionsFromLocalStorage() {
          var theHTML = "";
 
          for(i=0; i<options.length; i++) {
+				var theCheckbox = "";
             theHTML += '<tr>';
             theHTML += '<td>Serie:</td><td><input type="text" size="30" class="serienname" value="' + options[i].name + '"/></td>';
             theHTML += '<td>Pfad:</td><td><input type="text" size="30" class="pfad" value="' + options[i].pfad + '"/></td>';
             theHTML += '<td>Staffel:</td><td><input type="text" size="3" class="staffel" value="' + options[i].staffel + '"/></td>';
             theHTML += '<td>Episode:</td><td><input type="text" size="3" class="episode" value="' + options[i].episode + '"/></td>';
             theHTML += '<td>Sender:</td><td><input type="text" size="15" class="sender" value="' + options[i].sender + '"/><img title="Senderliste aktualisieren" style="cursor: pointer;" class="refresh" border="0" src="refresh.png" /></td>';
+				if(!options[i].aktiv || options[i].aktiv == "1") theCheckbox = " checked";
+				theHTML += '<td><label><input type="checkbox" class="aktiv" ' + theCheckbox + '/>Aktiv</label></td>';
             theHTML += '<td><input type="button" value="Zeile löschen" class="delentry"/></td>';
             theHTML += '</tr>\n';
          }
