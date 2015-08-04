@@ -46,13 +46,13 @@ function callback(idx, pagenumber) {
          options[idx].ergebnis = "";
       $senderows.each(function() {
          if(!$(this).hasClass("only-smartphone")) {
-            var sender = $(this).find('td').eq(3).text();
-            var datum = $(this).find('td').eq(1).text();
-            var staffelMatch = $(this).find('td').eq(7).text().match(/^(\d+)\./);
+            var sender = $(this).find('td').eq(4).text();
+            var datum = $(this).find('td').eq(2).text();
+            var staffelMatch = $(this).find('td').eq(8).text().match(/^(\d+)\./);
             var staffel = "";
             if(staffelMatch)
                staffel = staffelMatch[1];
-            var episode = $(this).find('td').eq(8).text();
+            var episode = $(this).find('td').eq(9).text();
             if((sender==options[idx].sender || options[idx].sender == "") && staffel==options[idx].staffel && episode==options[idx].episode && !gefunden) {
                options[idx].ergebnis = datum;
                options[idx].sender = sender;
