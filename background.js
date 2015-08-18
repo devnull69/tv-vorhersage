@@ -6,9 +6,9 @@ var lastUpdated = null;
 $(document).ready(function() {
    update();
    window.setInterval(function() {
-      // Update nach 5 Minuten
+      // Update nach 15 Minuten
       update();
-   }, 5 * 60 * 1000);
+   }, 15 * 60 * 1000);
 });
 
 function update() {
@@ -32,13 +32,14 @@ function sendRequest(i, pagenumber) {
    $.ajax({
       url: "http://www.fernsehserien.de/" + options[i].pfad + "/sendetermine" + addpath,
       type: "GET",
-      dataType: "html",
+      dataType: "text",
       success: callback(i, pagenumber)
    });
 }
 
 function callback(idx, pagenumber) {
    return function(data) {
+		data = removeInline(data);
       var $response = $(data);
       var $senderows = $response.find(".sendetermine tr");
       var gefunden = false;
@@ -70,4 +71,15 @@ function callback(idx, pagenumber) {
       }
       lastUpdated = new Date();
    }
+}
+
+function removeInline(theHTML) {
+   theHTML = theHTML.replace(/onclick=\"[^\"]*\"/g, '');
+   theHTML = theHTML.replace(/onchange=\"[^\"]*\"/g, '');
+   theHTML = theHTML.replace(/onsubmit=\"[^\"]*\"/g, '');
+   theHTML = theHTML.replace(/onmouseover=\"[^\"]*\"/g, '');
+   theHTML = theHTML.replace(/onmouseout=\"[^\"]*\"/g, '');
+   theHTML = theHTML.replace(/onerror=\"[^\"]*\"/g, '');
+   theHTML = theHTML.replace(/onload=\"[^\"]*\"/g, '');
+	return theHTML;
 }
