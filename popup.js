@@ -15,6 +15,9 @@ for(i=0; i<options.length; i++) {
 			theHTML += '<td></td>';
 		} else if(options[i].ergebnis == "-"){
 			theHTML += '<td class="rot">Fehler</td>';
+		} else if(options[i].ergebnis == "n.v."){
+			theHTML += '<td>' + options[i].ergebnis + '</td>';
+			anzahl++;
 		} else {
 			theHTML += '<td class="gruen">' + options[i].ergebnis + '</td>';
 			anzahl++;

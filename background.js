@@ -33,7 +33,11 @@ function sendRequest(i, pagenumber) {
       url: "http://www.fernsehserien.de/" + options[i].pfad + "/sendetermine" + addpath,
       type: "GET",
       dataType: "text",
-      success: callback(i, pagenumber)
+      success: callback(i, pagenumber),
+      error: function(xhr) {
+         if(xhr.status == 404)
+            options[i].ergebnis = "n.v.";
+      }
    });
 }
 
