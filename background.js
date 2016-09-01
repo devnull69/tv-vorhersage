@@ -63,6 +63,7 @@ function callback(idx, pagenumber) {
                options[idx].sender = sender;
                anzahl++;
                gefunden=true;
+               chrome.browserAction.setBadgeBackgroundColor({color: "#FF0000"});
                chrome.browserAction.setBadgeText({text: anzahl.toString()});
             }
          }
