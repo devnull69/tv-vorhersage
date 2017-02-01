@@ -10,7 +10,7 @@ for(i=0; i<options.length; i++) {
       headingHTML = '<tr><th>Serie</th><th>St</th><th>Ep</th><th>Sender</th><th>Datum</th></tr>';
    }
 	if(!options[i].aktiv || options[i].aktiv == "1") {
-		theHTML += '<tr><td width="100" class="titel"><a class="clickme" href="http://www.fernsehserien.de/' + options[i].pfad + '/sendetermine">' + options[i].name + '</a></td><td>' + options[i].staffel + '</td><td>' + options[i].episode + '</td><td>' + options[i].sender + '</td>';
+		theHTML += '<tr><td width="100" class="titel"><a class="clickme" href="https://www.fernsehserien.de/' + options[i].pfad + '/sendetermine">' + options[i].name + '</a></td><td>' + options[i].staffel + '</td><td>' + options[i].episode + '</td><td>' + options[i].sender + '</td>';
 		if(options[i].ergebnis == "") {
 			theHTML += '<td></td>';
 		} else if(options[i].ergebnis == "-"){

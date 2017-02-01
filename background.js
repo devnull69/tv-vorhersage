@@ -29,8 +29,11 @@ function sendRequest(i, pagenumber) {
    var addpath = "";
    if(pagenumber>0)
       addpath = "/" + pagenumber;
+
+   console.log("https://www.fernsehserien.de/" + options[i].pfad + "/sendetermine" + addpath);
+
    $.ajax({
-      url: "http://www.fernsehserien.de/" + options[i].pfad + "/sendetermine" + addpath,
+      url: "https://www.fernsehserien.de/" + options[i].pfad + "/sendetermine" + addpath,
       type: "GET",
       dataType: "text",
       success: callback(i, pagenumber),

@@ -1,11 +1,12 @@
 {
   "name": "TV Vorhersage",
   "description": "Finde heraus, ob und wann bestimmte Episoden im TV gesendet werden",
-  "version": "2.0.2",
+  "version": "2.1.0",
    "options_page": "options.html",
   "permissions": [
       "storage",
-      "http://www.fernsehserien.de/*"
+      "http://www.fernsehserien.de/*",
+      "https://www.fernsehserien.de/*"
   ],
   "background": {
     "scripts": ["jquery.js", "background.js"],

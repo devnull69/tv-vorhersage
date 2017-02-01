@@ -86,7 +86,7 @@ function requestSerienname(innerI, serienname, optionalArg) {
    //console.log('Pfadhandler entfernt');
    
    var xmlhttp = new XMLHttpRequest();
-   xmlhttp.open('GET', 'http://www.fernsehserien.de/' + serienname, true);
+   xmlhttp.open('GET', 'https://www.fernsehserien.de/' + serienname, true);
    xmlhttp.onreadystatechange = function() {
       if(xmlhttp.readyState == 4) {
          hideLoader();
@@ -101,9 +101,9 @@ function requestSerienname(innerI, serienname, optionalArg) {
                pfad.parentNode.style.border = '';
             });
             var $resultat = $(xmlhttp.responseText);
-            var $senderliste = $resultat.find('#navi-2-inner ul').eq(3);
+            var $senderliste = $resultat.find('#serienmenu li').eq(3);
             if($senderliste.text().indexOf("alle Sender") == -1)
-               $senderliste = $resultat.find('#navi-2-inner ul').eq(4);
+               $senderliste = $resultat.find('#serienmenu li').eq(4);
             $senderliste = $senderliste.find('ul').eq(0).find('li');
             $senderliste.each(function() {
                var newOption = document.createElement('option');
@@ -148,9 +148,9 @@ function requestSerienname(innerI, serienname, optionalArg) {
 function sucheSerie(innerI) {
    var serienname = encodeURIComponent(document.getElementsByClassName('serienname')[innerI].value);
    var pfad = document.getElementsByClassName('pfad')[innerI];
-   console.log("http://www.fernsehserien.de/suche/" + serienname);
+   console.log("https://www.fernsehserien.de/suche/" + serienname);
    $.ajax({
-      url: "http://www.fernsehserien.de/suche/" + serienname,
+      url: "https://www.fernsehserien.de/suche/" + serienname,
       type: "GET",
       dataType: "html",
       success: function(data) {
