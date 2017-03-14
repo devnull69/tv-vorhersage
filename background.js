@@ -30,10 +30,10 @@ function sendRequest(i, pagenumber) {
    if(pagenumber>0)
       addpath = "/" + pagenumber;
 
-   console.log("https://www.fernsehserien.de/" + options[i].pfad + "/sendetermine" + addpath);
+   console.log("https://www.fernsehserien.de/" + options[i].pfad + "/sendetermine" + addpath + "?t=" + (new Date()).getTime());
 
    $.ajax({
-      url: "https://www.fernsehserien.de/" + options[i].pfad + "/sendetermine" + addpath,
+      url: "https://www.fernsehserien.de/" + options[i].pfad + "/sendetermine" + addpath + "?t=" + (new Date()).getTime(),
       type: "GET",
       dataType: "text",
       success: callback(i, pagenumber),

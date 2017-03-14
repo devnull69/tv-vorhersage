@@ -1,7 +1,7 @@
 {
   "name": "TV Vorhersage",
   "description": "Finde heraus, ob und wann bestimmte Episoden im TV gesendet werden",
-  "version": "2.1.0",
+  "version": "3.0.0",
    "options_page": "options.html",
   "permissions": [
       "storage",

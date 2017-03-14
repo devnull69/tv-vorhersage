@@ -100,23 +100,7 @@ function requestSerienname(innerI, serienname, optionalArg) {
             }, 1000, function() {
                pfad.parentNode.style.border = '';
             });
-            var $resultat = $(xmlhttp.responseText);
-            var $senderliste = $resultat.find('#serienmenu li').eq(3);
-            if($senderliste.text().indexOf("alle Sender") == -1)
-               $senderliste = $resultat.find('#serienmenu li').eq(4);
-            $senderliste = $senderliste.find('ul').eq(0).find('li');
-            $senderliste.each(function() {
-               var newOption = document.createElement('option');
-               var sendertext = $(this).text();
-               if(trim(sendertext) == "alle Sender") {
-                  newOption.value = "";
-               } else {
-                  newOption.value = sendertext;
-               }
-               newOption.innerHTML = $(this).text();
-               sender.appendChild(newOption);
-               sender.value = optionalArg;
-            });
+            getSenderliste(sender, serienname, optionalArg);
          } else
             if(xmlhttp.status == 404) {
                pfad.value = "";
@@ -145,6 +129,34 @@ function requestSerienname(innerI, serienname, optionalArg) {
    xmlhttp.send();
 }
 
+function getSenderliste(sender, serienname, optionalArg) {
+
+   var xmlhttp = new XMLHttpRequest();
+   xmlhttp.open('GET', 'https://www.fernsehserien.de/' + serienname + "/sendetermine?t=" + (new Date()).getTime(), true);
+   xmlhttp.onreadystatechange = function() {
+      if(xmlhttp.readyState == 4) {
+         hideLoader();
+         if(xmlhttp.status == 200 || xmlhttp.status == 302) {
+            var $resultat = $(xmlhttp.responseText);
+            var $senderliste = $resultat.find('#sendetermine-select-sender option');
+            $senderliste.each(function() {
+               var newOption = document.createElement('option');
+               var sendertext = $(this).text();
+               if(trim(sendertext) == "alle Sender") {
+                  newOption.value = "";
+               } else {
+                  newOption.value = sendertext;
+               }
+               newOption.innerHTML = $(this).text();
+               sender.appendChild(newOption);
+               sender.value = optionalArg;
+            });
+         }
+      }
+   };
+   xmlhttp.send();
+}
+
 function sucheSerie(innerI) {
    var serienname = encodeURIComponent(document.getElementsByClassName('serienname')[innerI].value);
    var pfad = document.getElementsByClassName('pfad')[innerI];
@@ -164,7 +176,7 @@ function sucheSerie(innerI) {
                top: $(pfad).position().top+24 + "px"
             });
             $("#suchergebnisse a").click(function(e) {
-               var chosenPfad = $(this).attr("href");
+               var chosenPfad = $(this).attr("href").substring(1);
                $("#suchergebnisse").empty();
                $("#popupbox").hide();
                pfad.value = chosenPfad;
