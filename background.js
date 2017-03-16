@@ -54,6 +54,7 @@ function callback(idx, pagenumber) {
          options[idx].ergebnis = "";
       $senderows.each(function() {
          if(!$(this).hasClass("only-smartphone")) {
+            var $senderTags = $(this).find('td').eq(4).children();
             var sender = $(this).find('td').eq(4).text();
             var datum = $(this).find('td').eq(2).text();
             var staffelMatch = $(this).find('td').eq(8).text().match(/^(\d+)\./);
@@ -61,19 +62,26 @@ function callback(idx, pagenumber) {
             if(staffelMatch)
                staffel = staffelMatch[1];
             var episode = $(this).find('td').eq(9).text();
-            if((sender==options[idx].sender || options[idx].sender == "") && staffel==options[idx].staffel && episode==options[idx].episode && !gefunden) {
-               options[idx].ergebnis = datum;
-               options[idx].sender = sender;
-               anzahl++;
-               gefunden=true;
-               chrome.browserAction.setBadgeBackgroundColor({color: "#FF0000"});
-               chrome.browserAction.setBadgeText({text: anzahl.toString()});
+            if(staffel==options[idx].staffel && episode==options[idx].episode && !gefunden) {
+               if(sender!=options[idx].sender && options[idx].sender != "") {
+                  var senderTag = $senderTags.eq(0)[0];
+                  if(senderTag.tagName == "ABBR")
+                     sender = senderTag.title;
+               }
+               if(sender==options[idx].sender || options[idx].sender == "") {
+                  options[idx].ergebnis = datum;
+                  options[idx].sender = sender;
+                  anzahl++;
+                  gefunden=true;
+                  chrome.browserAction.setBadgeBackgroundColor({color: "#FF0000"});
+                  chrome.browserAction.setBadgeText({text: anzahl.toString()});
+               }
             }
          }
       });
       if(!gefunden) {
          // weitere Seite?
-         var weitereSeite = ($response.find('.nav-right').eq(0).find('a').length > 0) ? true : false;
+         var weitereSeite = ($response.find('.rechts').eq(0).find('a').length > 0) ? true : false;
          if(weitereSeite)
             sendRequest(idx, pagenumber+1);
       }
