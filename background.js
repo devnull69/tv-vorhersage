@@ -45,7 +45,8 @@ function sendRequest(i, pagenumber) {
 }
 
 function callback(idx, pagenumber) {
-   return function(data) {
+   return function(data, textStatus, jqXHR) {
+      console.log("Status: " + jqXHR.status);
 		data = removeInline(data);
       var $response = $(data);
       var $senderows = $response.find(".sendetermine tr");
@@ -82,7 +83,7 @@ function callback(idx, pagenumber) {
       if(!gefunden) {
          // weitere Seite?
          var weitereSeite = ($response.find('.rechts').eq(0).find('a').length > 0) ? true : false;
-         if(weitereSeite)
+         if(weitereSeite && jqXHR.status == 200)
             sendRequest(idx, pagenumber+1);
       }
       lastUpdated = new Date();
