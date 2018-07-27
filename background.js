@@ -69,12 +69,15 @@ function callback(idx, pagenumber) {
                      sender = senderTag.title;
                }
                if(sender==options[idx].sender || options[idx].sender == "") {
-                  options[idx].ergebnis = datum;
-                  options[idx].sender = sender;
-                  anzahl++;
-                  gefunden=true;
-                  chrome.browserAction.setBadgeBackgroundColor({color: "#FF0000"});
-                  chrome.browserAction.setBadgeText({text: anzahl.toString()});
+                  // new on 2018-07-27: If date is 10 chars, the found entry is from the past, don't show it!
+                  if(datum.length < 7) {
+                     options[idx].ergebnis = datum;
+                     options[idx].sender = sender;
+                     anzahl++;
+                     gefunden=true;
+                     chrome.browserAction.setBadgeBackgroundColor({color: "#FF0000"});
+                     chrome.browserAction.setBadgeText({text: anzahl.toString()});
+                  }
                }
             }
          }
