@@ -48,20 +48,23 @@ function callback(idx, pagenumber) {
    return function(data, textStatus, jqXHR) {
 		data = removeInline(data);
       var $response = $(data);
-      var $senderows = $response.find(".sendetermine tr");
+      var $senderows = $response.find("table tr");
       var gefunden = false;
       if($senderows.length>0)
          options[idx].ergebnis = "";
       $senderows.each(function() {
          if(!$(this).hasClass("only-smartphone")) {
             var $senderTags = $(this).find('td').eq(4).children();
-            var sender = $(this).find('td').eq(4).text();
+            var sender = $(this).find('td').eq(4).find('span').attr("content");
             var datum = $(this).find('td').eq(2).text();
-            var staffelMatch = $(this).find('td').eq(8).text().match(/^(\d+)\./);
+            var staffelMatch = $(this).find('td').eq(7).text().match(/^(\d+)\./);
             var staffel = "";
             if(staffelMatch)
                staffel = staffelMatch[1];
-            var episode = $(this).find('td').eq(9).text();
+            var episodeMatch = $(this).find('td').eq(7).text().match(/(\d+)$/);
+            var episode = "";
+            if(episodeMatch)
+               episode = episodeMatch[1];
             if(staffel==options[idx].staffel && episode==options[idx].episode && !gefunden) {
                if(sender!=options[idx].sender && options[idx].sender != "") {
                   var senderTag = $senderTags.eq(0)[0];
